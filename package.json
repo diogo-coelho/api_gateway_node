@@ -1,0 +1,53 @@
+{
+  "name": "api_gateway_node",
+  "version": "2.0.0",
+  "description": "API Gateway ITB - Node Js",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha",
+    "jshint": "gulp jshint",
+    "build": "gulp build",
+    "mongo_make:migration": "node -e \"require('./database/mongodb/config/config_migration').make()\"",
+    "mongo_delete:migration": "node -e \"require('./database/mongodb/config/config_migration').delete()\"",
+    "mongo_make:seeder": "node -e \"require('./database/mongodb/config/config_seeder').make()\"",
+    "mongo_delete:seeder": "node -e \"require('./database/mongodb/config/config_seeder').delete()\"",
+    "mongo_up": "node -e \"require('./database/mongodb/migrate').up()\"",
+    "mongo_down": "node -e \"require('./database/mongodb/migrate').down()\"",
+    "mongo_seed": "node -e \"require('./database/mongodb/seed').seed()\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://brunogodoi@bitbucket.org/brunogodoi/api_gateway_node.git"
+  },
+  "author": "Bruno Godoi | Diogo Coelho | ITB",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/brunogodoi/api_gateway_node#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cli-color": "^2.0.0",
+    "consign": "^0.1.6",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "forever-monitor": "^3.0.1",
+    "md5": "^2.2.1",
+    "moment": "^2.27.0",
+    "mongodb": "^3.5.8",
+    "node-schedule": "^1.3.2",
+    "nodemon": "^2.0.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "gulp": "^4.0.2",
+    "gulp-jshint": "^2.1.0",
+    "gulp-minify-ejs": "^1.0.3",
+    "gulp-terser": "^1.2.0",
+    "jshint": "^2.11.1",
+    "jshint-stylish": "^2.2.1",
+    "mocha": "^8.0.1"
+  }
+}

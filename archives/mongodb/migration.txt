@@ -1,0 +1,79 @@
+"use strict";
+
+// ----------------------------------------------------- //
+// ----------------------------------------------------- //
+// -----                Migration                   ---- //
+// ----------------------------------------------------- //
+// ----------------------------------------------------- //
+
+// ---- Imports ---- //
+require('dotenv/config');
+
+const dbConnection = require('../../../config/dbConnection.js')();
+/* IMPORT MONGODB */
+const MongoClient = require('mongodb').MongoClient;
+
+const _connection = dbConnection.url;
+const _database = dbConnection.database;
+const _collection = "";
+
+// ---- Insere Schema Validation na Collection ---- //
+const schemaValidation = {
+    // ---- Insira o Schema Validation aqui ---- //
+};
+
+// ---- Processamento ---- //
+module.exports.up = () => {
+    return new Promise((resolve, reject) => {
+        MongoClient.connect(_connection, { useUnifiedTopology: true }, (err, client) => {
+            if (err) {
+                return reject(err);
+            }
+            let db = client.db(_database);
+            db.createCollection(_collection, schemaValidation, async (err, res) => {
+                if (err) reject(err);
+                console.log(`Collection criada`);
+
+                // Caso queira criar índices na sua collection, descomente o bloco de código abaixo 
+                /* ----
+                await db.collection(_collection).createIndexes([
+                    // Exemplo: { name: 'indice_1', key: { nome_do_atributo: 1 }, unique: true }
+                ]);
+    
+                console.log(`Índices criados`); 
+                ---- */
+
+                resolve(true);
+                client.close();
+                return;
+            });
+        });
+    }).catch((err) => {
+        console.log(err);
+        return false;
+    });
+};
+
+module.exports.down = () => {
+    return new Promise((resolve, reject) => {
+        MongoClient.connect(_connection, { useUnifiedTopology: true }, (err, client) => {
+            if (err) {
+                return reject(err);
+            }
+            let db = client.db(_database);
+            db.collection(_collection).drop(async (err, delOK) => {
+                if (err) reject(err);
+
+                if (delOK) {
+                    console.log(`Collection excluída`);
+                    resolve(true);
+                }
+                await client.close();
+                return;
+            });
+        });
+    }).catch((err) => {
+        console.log(err);
+        return false;
+    });
+};

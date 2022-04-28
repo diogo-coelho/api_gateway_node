@@ -1,0 +1,8 @@
+{
+    "esversion": 9,
+    "node": true,
+    "strict": true,
+    "laxbreak": true,
+    "browser": true,
+    "loopfunc": true
+}
